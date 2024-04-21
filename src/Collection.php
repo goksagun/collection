@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Test\Fixtures\ProductCollection;
 use Traversable;
 
 /**
@@ -35,8 +34,9 @@ class Collection implements \IteratorAggregate, \Countable
      * Add an item to the collection. Optionally, provide an index.
      *
      * @param T $item
+     * @return self<T>
      */
-    public function add(mixed $item, int|string|null $index = null): void
+    public function add(mixed $item, int|string|null $index = null): self
     {
         if (null !== $index) {
             if ($this->exists($index)) {
@@ -45,22 +45,28 @@ class Collection implements \IteratorAggregate, \Countable
 
             $this->items[$index] = $item;
 
-            return;
+            return $this;
         }
 
         $this->items[] = $item;
+
+        return $this;
     }
 
     /**
      * Remove an item from the collection by index.
+     *
+     * @return self<T>
      */
-    public function remove(int|string $index): void
+    public function remove(int|string $index): self
     {
         if (!$this->exists($index)) {
             throw new \RuntimeException(\sprintf('The index %s does not exist in the collection.', $index));
         }
 
         unset($this->items[$index]);
+
+        return $this;
     }
 
     /**
