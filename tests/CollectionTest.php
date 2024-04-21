@@ -256,4 +256,42 @@ final class CollectionTest extends TestCase
 
         $this->assertTrue($collection->isEmpty());
     }
+
+    public function testShouldGetCollectionKeys()
+    {
+        $collection = new Collection('item1', 'item2');
+
+        $this->assertEquals([0, 1], $collection->keys());
+    }
+
+    public function testShouldGetCollectionValues()
+    {
+        $collection = new Collection('item1', 'item2');
+
+        $this->assertEquals(['item1', 'item2'], $collection->values());
+    }
+
+    public function testShouldEachCollection()
+    {
+        $collection = new Collection('item1', 'item2');
+
+        $items = [];
+        $collection->each(function ($item, $index) use (&$items) {
+            $items[$index] = $item;
+        });
+
+        $this->assertEquals(['item1', 'item2'], $items);
+    }
+
+    public function testShouldExtractSpecifiedPropertyFromEachItemInCollection()
+    {
+        $collection = new Collection(
+            ['name' => 'item1', 'price' => 100],
+            ['name' => 'item2', 'price' => 200]
+        );
+
+        $items = $collection->pluck('name');
+
+        $this->assertEquals(['item1', 'item2'], $items->all());
+    }
 }

@@ -138,6 +138,22 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
+     * Get the keys of the collection.
+     */
+    public function keys(): array
+    {
+        return \array_keys($this->items);
+    }
+
+    /**
+     * Get the values of the collection.
+     */
+    public function values(): array
+    {
+        return \array_values($this->items);
+    }
+
+    /**
      * Check if the collection is empty.
      */
     public function isEmpty(): bool
@@ -153,6 +169,19 @@ class Collection implements \IteratorAggregate, \Countable
     public function clear(): self
     {
         $this->items = [];
+
+        return $this;
+    }
+
+    /**
+     * Apply a callback function to all items in the collection.
+     *
+     * @param callable(T):void $callback
+     * @return self<T>
+     */
+    public function each(callable $callback): self
+    {
+        \array_walk($this->items, $callback);
 
         return $this;
     }
@@ -218,5 +247,15 @@ class Collection implements \IteratorAggregate, \Countable
     public function merge(Collection $collection): self
     {
         return new self(...\array_merge($this->items, $collection->all()));
+    }
+
+    /**
+     * Get the first item from the collection and remove it.
+     *
+     * @return self<T>
+     */
+    public function pluck(int|string $key): self
+    {
+        return new self(...\array_column($this->items, $key));
     }
 }
