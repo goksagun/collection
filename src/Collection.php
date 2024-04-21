@@ -2,37 +2,59 @@
 
 namespace App;
 
+/**
+ * @template T
+ */
 class Collection
 {
-    protected array $items;
+    /**
+     * @var iterable<T>
+     */
+    protected iterable $items;
 
-    public function __construct(object ...$items) {
+    /**
+     * @param T ...$items
+     */
+    public function __construct(...$items)
+    {
         $this->items = $items;
     }
 
-    public function add(mixed $item): void
+    /**
+     * @param T $item
+     */
+    public function add($item): void
     {
         $this->items[] = $item;
     }
 
     public function count(): int
     {
-        return count($this->items);
+        return \count($this->items);
     }
 
-    public function exists(int|string $index): bool {
-        return array_key_exists($index, $this->items);
-    }
-
-    public function all(): array {
+    /**
+     * @return array<T>
+     */
+    public function all(): iterable
+    {
         return $this->items;
     }
 
-    public function get(int|string $index): ?object {
+    /**
+     * @return T|null
+     */
+    public function get(int|string $index): mixed
+    {
         if (!$this->exists($index)) {
             return null;
         }
 
         return $this->items[$index];
+    }
+
+    public function exists(int|string $index): bool
+    {
+        return \array_key_exists($index, $this->items);
     }
 }
