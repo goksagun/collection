@@ -68,14 +68,6 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
-     * Calculate the number of items in the collection.
-     */
-    public function count(): int
-    {
-        return \count($this->items);
-    }
-
-    /**
      * Get all items from the collection.
      *
      * @return array<T>
@@ -108,6 +100,24 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
+     * Check if a specific item is in the collection.
+     *
+     * @param T $item
+     */
+    public function contains($item): bool
+    {
+        return \in_array($item, $this->items, true);
+    }
+
+    /**
+     * Calculate the number of items in the collection.
+     */
+    public function count(): int
+    {
+        return \count($this->items);
+    }
+
+    /**
      * Get the first item from the collection.
      *
      * @return T|null
@@ -133,16 +143,6 @@ class Collection implements \IteratorAggregate, \Countable
     public function isEmpty(): bool
     {
         return empty($this->items);
-    }
-
-    /**
-     * Check if a specific item is in the collection.
-     *
-     * @param T $item
-     */
-    public function contains($item): bool
-    {
-        return \in_array($item, $this->items, true);
     }
 
     /**
