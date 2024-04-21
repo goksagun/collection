@@ -205,6 +205,17 @@ final class CollectionTest extends TestCase
         $this->assertEquals(['a' => 1, 'b' => 2, 'c' => 3], $sorted->all());
     }
 
+    public function testShouldMergeCollections()
+    {
+        $collection1 = new Collection('item1', 'item2');
+        $collection2 = new Collection('item3', 'item4');
+        $collection3 = new Collection('item5', 'item6');
+
+        $merged = $collection1->merge($collection2)->merge($collection3);
+
+        $this->assertEquals(['item1', 'item2', 'item3', 'item4', 'item5', 'item6'], $merged->all());
+    }
+
     public function testShouldClearCollection()
     {
         $collection = new Collection('item1', 'item2');

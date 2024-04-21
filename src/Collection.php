@@ -180,11 +180,15 @@ class Collection implements \IteratorAggregate, \Countable
         return new self(...$items);
     }
 
-    public function merge(): self
+    /**
+     * Merge the collection with another collection.
+     *
+     * @param self<T> $collection
+     * @return self<T>
+     */
+    public function merge(Collection $collection): self
     {
-        $items = \array_merge(...$this->items);
-
-        return new self(...$items);
+        return new self(...\array_merge($this->items, $collection->all()));
     }
 
     /**
