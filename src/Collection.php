@@ -36,7 +36,7 @@ class Collection implements \IteratorAggregate, \Countable
      *
      * @param T $item
      */
-    public function add($item): void
+    public function add(mixed $item): void
     {
         $this->items[] = $item;
     }
