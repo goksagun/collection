@@ -2,17 +2,15 @@
 
 namespace App;
 
-use Traversable;
-
 /**
  * @template T
  */
 class Collection implements \IteratorAggregate, \Countable
 {
     /**
-     * @var iterable<T>
+     * @var array<T>
      */
-    protected iterable $items;
+    protected array $items;
 
     /**
      * @param T ...$items
@@ -23,9 +21,9 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
-     * @return Traversable<T>
+     * @return \Traversable<T>
      */
-    public function getIterator(): Traversable
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->items);
     }
@@ -36,7 +34,7 @@ class Collection implements \IteratorAggregate, \Countable
      * @param T $item
      * @return self<T>
      */
-    public function add(mixed $item, int|string|null $index = null): self
+    public function add(mixed $item, int|string $index = null): self
     {
         if (null !== $index) {
             if ($this->exists($index)) {
@@ -82,7 +80,7 @@ class Collection implements \IteratorAggregate, \Countable
      *
      * @return array<T>
      */
-    public function all(): iterable
+    public function all(): array
     {
         return $this->items;
     }
@@ -148,6 +146,18 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
+     * Clear all items from the collection.
+     *
+     * @return self<T>
+     */
+    public function clear(): self
+    {
+        $this->items = [];
+
+        return $this;
+    }
+
+    /**
      * Apply a callback function to all items in the collection.
      *
      * @param callable(T):T $callback
@@ -208,13 +218,5 @@ class Collection implements \IteratorAggregate, \Countable
     public function merge(Collection $collection): self
     {
         return new self(...\array_merge($this->items, $collection->all()));
-    }
-
-    /**
-     * Clear all items from the collection.
-     */
-    public function clear(): void
-    {
-        $this->items = [];
     }
 }
