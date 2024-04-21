@@ -250,12 +250,24 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
-     * Get the first item from the collection and remove it.
+     * Get a subset of the collection from an array or object given a key or property.
      *
      * @return self<T>
      */
     public function pluck(int|string $key): self
     {
-        return new self(...\array_column($this->items, $key));
+        return new self(...\array_map(function (mixed $item) use ($key) {
+            if (\is_object($item)) {
+                $reflector = new \ReflectionObject($item);
+
+                return $reflector->getProperty($key)->getValue($item);
+            }
+
+            if (\is_array($item)) {
+                return $item[$key];
+            }
+
+            throw new \RuntimeException('The item must be an array or an object.');
+        }, $this->items));
     }
 }

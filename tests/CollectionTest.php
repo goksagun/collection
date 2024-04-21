@@ -3,6 +3,7 @@
 namespace App\Test;
 
 use App\Collection;
+use App\Test\Fixtures\Product;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionTest extends TestCase
@@ -283,7 +284,7 @@ final class CollectionTest extends TestCase
         $this->assertEquals(['item1', 'item2'], $items);
     }
 
-    public function testShouldExtractSpecifiedPropertyFromEachItemInCollection()
+    public function testShouldExtractSpecifiedKeyFromEachItemInArrayCollection()
     {
         $collection = new Collection(
             ['name' => 'item1', 'price' => 100],
@@ -293,5 +294,26 @@ final class CollectionTest extends TestCase
         $items = $collection->pluck('name');
 
         $this->assertEquals(['item1', 'item2'], $items->all());
+    }
+
+    public function testShouldExtractSpecifiedPropertyFromEachItemInObjectCollection()
+    {
+        $collection = new Collection(
+            new Product('item1', 100),
+            new Product('item2', 200)
+        );
+
+        $items = $collection->pluck('name');
+
+        $this->assertEquals(['item1', 'item2'], $items->all());
+    }
+
+    public function testShouldThrowExceptionWhenExtractingItemInNonArrayOrObjectCollection()
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('The item must be an array or an object.');
+        $collection = new Collection('item1', 'item2');
+
+        $collection->pluck('name');
     }
 }
