@@ -4,8 +4,12 @@ namespace App\Test;
 
 use App\Collection;
 use App\Test\Fixtures\Product;
+use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversNothing]
+#[UsesClass(Collection::class)]
 final class CollectionTest extends TestCase
 {
     public function testShouldInstantiate()
