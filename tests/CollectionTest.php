@@ -124,9 +124,23 @@ final class CollectionTest extends TestCase
         $this->assertEquals('item1', $collection->first());
     }
 
+    public function testShouldGetFirstItemWithStringIndex()
+    {
+        $collection = new Collection(...['a' => 'item1', 'b' => 'item2']);
+
+        $this->assertEquals('item1', $collection->first());
+    }
+
     public function testShouldGetLastItem()
     {
         $collection = new Collection('item1', 'item2');
+
+        $this->assertEquals('item2', $collection->last());
+    }
+
+    public function testShouldGetLastItemWithStringIndex()
+    {
+        $collection = new Collection(...['a' => 'item1', 'b' => 'item2']);
 
         $this->assertEquals('item2', $collection->last());
     }

@@ -106,7 +106,7 @@ class Collection implements \IteratorAggregate, \Countable
      */
     public function first(): mixed
     {
-        return $this->get(0);
+        return $this->get(\array_key_first($this->items));
     }
 
     /**
@@ -116,7 +116,7 @@ class Collection implements \IteratorAggregate, \Countable
      */
     public function last(): mixed
     {
-        return $this->get($this->count() - 1);
+        return $this->get(\array_key_last($this->items));
     }
 
     /**
