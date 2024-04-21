@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Test\Fixtures\ProductCollection;
 use Traversable;
 
 /**
@@ -48,6 +49,14 @@ class Collection implements \IteratorAggregate, \Countable
         }
 
         $this->items[] = $item;
+    }
+
+    /**
+     * Remove an item from the collection by index.
+     */
+    public function remove(int|string $int): void
+    {
+        unset($this->items[$int]);
     }
 
     /**
