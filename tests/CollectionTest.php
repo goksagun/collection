@@ -2,8 +2,8 @@
 
 namespace App\Test;
 
-use App\Collection;
-use App\Test\Fixtures\Product;
+use Goksagun\Collection\Collection;
+use Goksagun\Collection\Test\Fixtures\Product;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
