@@ -51,4 +51,38 @@ final class CollectionTest extends TestCase
         $this->assertNull($collection->get(2));
     }
 
+    public function testShouldGetItemWithIntIndex()
+    {
+        $collection = new Collection('item1', 'item2');
+
+        $this->assertEquals('item1', $collection->get(0));
+        $this->assertEquals('item2', $collection->get(1));
+        $this->assertNull($collection->get(2));
+    }
+
+    public function testShouldGetItemWithStringIndex()
+    {
+        $collection = new Collection('item1', 'item2');
+
+        $this->assertEquals('item1', $collection->get('0'));
+        $this->assertEquals('item2', $collection->get('1'));
+        $this->assertNull($collection->get('2'));
+    }
+
+    public function testShouldGetItemWithMixedIndex()
+    {
+        $collection = new Collection('item1', 'item2');
+
+        $this->assertEquals('item1', $collection->get(0));
+        $this->assertEquals('item2', $collection->get('1'));
+        $this->assertNull($collection->get(2));
+    }
+
+    public function testShouldGetIterator()
+    {
+        $collection = new Collection('item1', 'item2');
+
+        $this->assertInstanceOf(\Traversable::class, $collection->getIterator());
+    }
+
 }

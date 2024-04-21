@@ -2,10 +2,12 @@
 
 namespace App;
 
+use Traversable;
+
 /**
  * @template T
  */
-class Collection
+class Collection implements \IteratorAggregate, \Countable
 {
     /**
      * @var iterable<T>
@@ -18,6 +20,14 @@ class Collection
     public function __construct(...$items)
     {
         $this->items = $items;
+    }
+
+    /**
+     * @return Traversable<T>
+     */
+    public function getIterator(): Traversable
+    {
+        return new \ArrayIterator($this->items);
     }
 
     /**
