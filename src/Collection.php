@@ -259,17 +259,29 @@ class Collection implements \IteratorAggregate, \Countable
      *
      * @return self<T>
      */
-    public function pluck(int|string $key): self
+    public function pluck(int|string $key, int|string $indexKey = null): self
     {
-        return new self(...\array_map(function (mixed $item) use ($key) {
+        return new self(...\array_map(function (mixed $item) use ($key, $indexKey) {
+            if (\is_array($item)) {
+                if (null !== $indexKey) {
+                    return [$item[$indexKey] => $item[$key]];
+                }
+
+                return $item[$key];
+            }
+
             if (\is_object($item)) {
                 $reflector = new \ReflectionObject($item);
 
-                return $reflector->getProperty($key)->getValue($item);
-            }
+                if (null !== $indexKey) {
+                    return [
+                        $reflector->getProperty($indexKey)->getValue($item) => $reflector->getProperty(
+                            $key
+                        )->getValue($item)
+                    ];
+                }
 
-            if (\is_array($item)) {
-                return $item[$key];
+                return $reflector->getProperty($key)->getValue($item);
             }
 
             throw new \RuntimeException('The item must be an array or an object.');

@@ -313,6 +313,18 @@ final class CollectionTest extends TestCase
         $this->assertEquals(['item1', 'item2'], $items->all());
     }
 
+    public function testShouldExtractSpecifiedPropertyAndKeyFromEachItemInObjectCollection()
+    {
+        $collection = new Collection(
+            new Product('item1', 100),
+            new Product('item2', 200)
+        );
+
+        $items = $collection->pluck('price', 'name');
+
+        $this->assertEquals([['item1' => 100], ['item2' => 200]], $items->all());
+    }
+
     public function testShouldThrowExceptionWhenExtractingItemInNonArrayOrObjectCollection()
     {
         $this->expectException(\RuntimeException::class);
