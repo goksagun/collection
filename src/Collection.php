@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Test\Fixtures\ProductCollection;
 use Traversable;
 
 /**
@@ -66,5 +67,13 @@ class Collection implements \IteratorAggregate, \Countable
     public function exists(int|string $index): bool
     {
         return \array_key_exists($index, $this->items);
+    }
+
+    /**
+     * @return T|null
+     */
+    public function first(): mixed
+    {
+        return $this->get(0);
     }
 }

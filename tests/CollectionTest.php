@@ -12,6 +12,13 @@ final class CollectionTest extends TestCase
         $this->assertInstanceOf(Collection::class, new Collection());
     }
 
+    public function testShouldGetIterator()
+    {
+        $collection = new Collection('item1', 'item2');
+
+        $this->assertInstanceOf(\Traversable::class, $collection->getIterator());
+    }
+
     public function testShouldAddItem()
     {
         $collection = new Collection();
@@ -78,11 +85,11 @@ final class CollectionTest extends TestCase
         $this->assertNull($collection->get(2));
     }
 
-    public function testShouldGetIterator()
+    public function testShouldGetFirstItem()
     {
         $collection = new Collection('item1', 'item2');
 
-        $this->assertInstanceOf(\Traversable::class, $collection->getIterator());
+        $this->assertEquals('item1', $collection->first());
     }
 
 }
