@@ -92,4 +92,11 @@ final class CollectionTest extends TestCase
         $this->assertEquals('item1', $collection->first());
     }
 
+    public function testShouldGetLastItem()
+    {
+        $collection = new Collection('item1', 'item2');
+
+        $this->assertEquals('item2', $collection->last());
+    }
+
 }

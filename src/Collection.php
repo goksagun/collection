@@ -76,4 +76,12 @@ class Collection implements \IteratorAggregate, \Countable
     {
         return $this->get(0);
     }
+
+    /**
+     * @return T|null
+     */
+    public function last(): mixed
+    {
+        return $this->get($this->count() - 1);
+    }
 }
