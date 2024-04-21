@@ -174,6 +174,17 @@ final class CollectionTest extends TestCase
         $this->assertEquals([1, 2, 3], $sorted->all());
     }
 
+    public function testShouldSortCollectionWithKeys()
+    {
+        $collection = new Collection(...['c' => 3, 'a' => 1, 'b' => 2]);
+
+        $sorted = $collection->sort(function ($a, $b) {
+            return $a <=> $b;
+        });
+
+        $this->assertEquals(['a' => 1, 'b' => 2, 'c' => 3], $sorted->all());
+    }
+
     public function testShouldClearCollection()
     {
         $collection = new Collection('item1', 'item2');

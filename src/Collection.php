@@ -166,7 +166,14 @@ class Collection implements \IteratorAggregate, \Countable
     public function sort(callable $callback): self
     {
         $items = $this->items;
-        \usort($items, $callback);
+        \uasort($items, $callback);
+
+        return new self(...$items);
+    }
+
+    public function merge(): self
+    {
+        $items = \array_merge(...$this->items);
 
         return new self(...$items);
     }
