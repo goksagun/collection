@@ -48,7 +48,7 @@ final class CollectionTest extends TestCase
         $this->assertEquals('item', $collection->get('index'));
     }
 
-    public function testShouldAddItemWithExistingIndexThrowDuplicateException()
+    public function testShouldThrowExceptionWhenAddingExistingItem()
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('The index 0 already exists in the collection.');
