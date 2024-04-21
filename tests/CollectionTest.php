@@ -239,6 +239,15 @@ final class CollectionTest extends TestCase
         $this->assertEquals([1 => 'item2'], $collection->all());
     }
 
+    public function testShouldThrowExceptionWhenRemovingNonExistingItem()
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('The index 2 does not exist in the collection.');
+
+        $collection = new Collection('item1', 'item2');
+        $collection->remove(2);
+    }
+
     public function testShouldClearCollection()
     {
         $collection = new Collection('item1', 'item2');

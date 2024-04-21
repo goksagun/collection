@@ -54,9 +54,13 @@ class Collection implements \IteratorAggregate, \Countable
     /**
      * Remove an item from the collection by index.
      */
-    public function remove(int|string $int): void
+    public function remove(int|string $index): void
     {
-        unset($this->items[$int]);
+        if (!$this->exists($index)) {
+            throw new \RuntimeException(\sprintf('The index %s does not exist in the collection.', $index));
+        }
+
+        unset($this->items[$index]);
     }
 
     /**
