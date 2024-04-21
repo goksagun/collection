@@ -32,6 +32,8 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
+     * Add an item to the collection.
+     *
      * @param T $item
      */
     public function add($item): void
@@ -39,12 +41,17 @@ class Collection implements \IteratorAggregate, \Countable
         $this->items[] = $item;
     }
 
+    /**
+     * Calculate the number of items in the collection.
+     */
     public function count(): int
     {
         return \count($this->items);
     }
 
     /**
+     * Get all items from the collection.
+     *
      * @return array<T>
      */
     public function all(): iterable
@@ -53,6 +60,8 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
+     * Get an item from the collection by index.
+     *
      * @return T|null
      */
     public function get(int|string $index): mixed
@@ -64,12 +73,17 @@ class Collection implements \IteratorAggregate, \Countable
         return $this->items[$index];
     }
 
+    /**
+     * Check if an item exists in the collection by index.
+     */
     public function exists(int|string $index): bool
     {
         return \array_key_exists($index, $this->items);
     }
 
     /**
+     * Get the first item from the collection.
+     *
      * @return T|null
      */
     public function first(): mixed
@@ -78,10 +92,90 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
+     * Get the last item from the collection.
+     *
      * @return T|null
      */
     public function last(): mixed
     {
         return $this->get($this->count() - 1);
+    }
+
+    /**
+     * Check if the collection is empty.
+     */
+    public function isEmpty(): bool
+    {
+        return empty($this->items);
+    }
+
+    /**
+     * Check if a specific item is in the collection.
+     *
+     * @param T $item
+     */
+    public function contains($item): bool
+    {
+        return \in_array($item, $this->items, true);
+    }
+
+    /**
+     * Apply a callback function to all items in the collection.
+     *
+     * @param callable(T):T $callback
+     * @return self<T>
+     */
+    public function map(callable $callback): self
+    {
+        $items = \array_map($callback, $this->items);
+
+        return new self(...$items);
+    }
+
+    /**
+     * Filter the collection using a callback function.
+     *
+     * @param callable(T):bool $callback
+     * @return self<T>
+     */
+    public function filter(callable $callback): self
+    {
+        $items = \array_filter($this->items, $callback);
+
+        return new self(...$items);
+    }
+
+    /**
+     * Reduce the collection to a single value using a callback function.
+     *
+     * @param callable(T, T):T $callback
+     * @param mixed|null $initial
+     * @return T
+     */
+    public function reduce(callable $callback, mixed $initial = null)
+    {
+        return \array_reduce($this->items, $callback, $initial);
+    }
+
+    /**
+     * Sort the collection using a callback function.
+     *
+     * @param callable(T, T):int $callback
+     * @return self<T>
+     */
+    public function sort(callable $callback): self
+    {
+        $items = $this->items;
+        \usort($items, $callback);
+
+        return new self(...$items);
+    }
+
+    /**
+     * Clear all items from the collection.
+     */
+    public function clear(): void
+    {
+        $this->items = [];
     }
 }
