@@ -179,6 +179,17 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
+     * Reduce the collection to a single value using a callback function.
+     *
+     * @param callable(T, T):T $callback
+     * @param mixed|null $initial
+     */
+    public function reduce(callable $callback, mixed $initial = null): mixed
+    {
+        return \array_reduce($this->items, $callback, $initial);
+    }
+
+    /**
      * Apply a callback function to all items in the collection.
      *
      * @param callable(T):void $callback
@@ -215,18 +226,6 @@ class Collection implements \IteratorAggregate, \Countable
         $items = \array_filter($this->items, $callback);
 
         return new self(...$items);
-    }
-
-    /**
-     * Reduce the collection to a single value using a callback function.
-     *
-     * @param callable(T, T):T $callback
-     * @param mixed|null $initial
-     * @return T
-     */
-    public function reduce(callable $callback, mixed $initial = null)
-    {
-        return \array_reduce($this->items, $callback, $initial);
     }
 
     /**
