@@ -271,7 +271,7 @@ final class CollectionTest extends TestCase
         $this->assertEquals(['item1', 'item2'], $collection->values());
     }
 
-    public function testShouldEachCollection()
+    public function testShouldApplyCallbackToEachItemInCollection()
     {
         $collection = new Collection('item1', 'item2');
 
