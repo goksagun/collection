@@ -4,6 +4,7 @@ namespace App\Test;
 
 use Goksagun\Collection\Collection;
 use Goksagun\Collection\Test\Fixtures\Product;
+use Goksagun\Collection\Test\Fixtures\ProductCollection;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -319,7 +320,7 @@ final class CollectionTest extends TestCase
 
     public function testShouldExtractSpecifiedPropertyFromEachItemInObjectCollection()
     {
-        $collection = new Collection(
+        $collection = new ProductCollection(
             new Product('item1', 100),
             new Product('item2', 200)
         );
@@ -331,7 +332,7 @@ final class CollectionTest extends TestCase
 
     public function testShouldExtractSpecifiedPropertyAndKeyFromEachItemInObjectCollection()
     {
-        $collection = new Collection(
+        $collection = new ProductCollection(
             new Product('item1', 100),
             new Product('item2', 200)
         );
@@ -339,6 +340,27 @@ final class CollectionTest extends TestCase
         $items = $collection->pluck('price', 'name');
 
         $this->assertEquals([['item1' => 100], ['item2' => 200]], $items->all());
+    }
+
+    public function testShouldThrowExceptionWhenExtractingNonExistingProperty()
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('The item does not have the key "price".');
+        $collection = new Collection(['name' => 'item1'], ['name' => 'item2']);
+
+        $collection->pluck('price');
+    }
+
+    public function testShouldThrowExceptionWhenExtractingNonExistingPropertyInObjectCollection()
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('The item does not have the property "stock".');
+        $collection = new ProductCollection(
+            new Product('item1', 100),
+            new Product('item2', 200)
+        );
+
+        $collection->pluck('stock');
     }
 
     public function testShouldThrowExceptionWhenExtractingItemInNonArrayOrObjectCollection()
