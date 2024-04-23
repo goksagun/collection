@@ -272,6 +272,10 @@ class Collection implements \IteratorAggregate, \Countable
     {
         return new self(...\array_map(function (mixed $item) use ($key, $indexKey) {
             if (\is_array($item)) {
+                if (!\array_key_exists($key, $item)) {
+                    throw new \RuntimeException(\sprintf('The item does not have the key "%s".', $key));
+                }
+
                 if (null !== $indexKey) {
                     return [$item[$indexKey] => $item[$key]];
                 }
@@ -281,6 +285,10 @@ class Collection implements \IteratorAggregate, \Countable
 
             if (\is_object($item)) {
                 $reflector = new \ReflectionObject($item);
+
+                if (!$reflector->hasProperty($key)) {
+                    throw new \RuntimeException(\sprintf('The item does not have the property "%s".', $key));
+                }
 
                 if (null !== $indexKey) {
                     return [

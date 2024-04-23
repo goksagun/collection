@@ -1,3 +1,8 @@
+## 0.2.2 (April 23, 2024)
+  - Add test fixtures
+  - Update php.yml
+  - Create php.yml
+
 ## 0.2.1 (April 23, 2024)
   - Add README file
 
