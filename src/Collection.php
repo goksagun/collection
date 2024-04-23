@@ -37,9 +37,9 @@ class Collection implements \IteratorAggregate, \Countable
      * Add an item to the collection. Optionally, provide an index.
      *
      * @param T $item
-     * @return self<T>
+     * @return static<T>
      */
-    public function add(mixed $item, int|string $index = null): self
+    public function add(mixed $item, int|string $index = null): static
     {
         if (null !== $index) {
             if ($this->exists($index)) {
@@ -59,9 +59,9 @@ class Collection implements \IteratorAggregate, \Countable
     /**
      * Remove an item from the collection by index.
      *
-     * @return self<T>
+     * @return static<T>
      */
-    public function remove(int|string $index): self
+    public function remove(int|string $index): static
     {
         if (!$this->exists($index)) {
             throw new \RuntimeException(\sprintf('The index %s does not exist in the collection.', $index));
@@ -169,9 +169,9 @@ class Collection implements \IteratorAggregate, \Countable
     /**
      * Clear all items from the collection.
      *
-     * @return self<T>
+     * @return static<T>
      */
-    public function clear(): self
+    public function clear(): static
     {
         $this->items = [];
 
@@ -181,11 +181,11 @@ class Collection implements \IteratorAggregate, \Countable
     /**
      * Chunk the collection into multiple arrays.
      *
-     * @return self<T>[]
+     * @return static<T>[]
      */
     public function chunk(int $size): array
     {
-        return \array_map(fn($chunk) => (new self(...$chunk)), \array_chunk($this->items, $size));
+        return \array_map(fn($chunk) => (new static(...$chunk)), \array_chunk($this->items, $size));
     }
 
     /**
@@ -203,9 +203,9 @@ class Collection implements \IteratorAggregate, \Countable
      * Apply a callback function to all items in the collection.
      *
      * @param callable(T):void $callback
-     * @return self<T>
+     * @return static<T>
      */
-    public function each(callable $callback): self
+    public function each(callable $callback): static
     {
         \array_walk($this->items, $callback);
 
@@ -216,51 +216,49 @@ class Collection implements \IteratorAggregate, \Countable
      * Apply a callback function to all items in the collection.
      *
      * @param callable(T):T $callback
-     * @return self<T>
+     * @return static<T>
      */
-    public function map(callable $callback): self
+    public function map(callable $callback): static
     {
-        $items = \array_map($callback, $this->items);
-
-        return new self(...$items);
+        return new static(...\array_map($callback, $this->items));
     }
 
     /**
      * Filter the collection using a callback function.
      *
      * @param callable(T):bool $callback
-     * @return self<T>
+     * @return static<T>
      */
-    public function filter(callable $callback): self
+    public function filter(callable $callback): static
     {
         $items = \array_filter($this->items, $callback);
 
-        return new self(...$items);
+        return new static(...$items);
     }
 
     /**
      * Sort the collection using a callback function.
      *
      * @param callable(T, T):int $callback
-     * @return self<T>
+     * @return static<T>
      */
-    public function sort(callable $callback): self
+    public function sort(callable $callback): static
     {
         $items = $this->items;
         \uasort($items, $callback);
 
-        return new self(...$items);
+        return new static(...$items);
     }
 
     /**
      * Merge the collection with another collection.
      *
-     * @param self<T> $collection
-     * @return self<T>
+     * @param static<T> $collection
+     * @return static<T>
      */
-    public function merge(Collection $collection): self
+    public function merge(Collection $collection): static
     {
-        return new self(...\array_merge($this->items, $collection->all()));
+        return new static(...\array_merge($this->items, $collection->all()));
     }
 
     /**
