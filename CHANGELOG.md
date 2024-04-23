@@ -1,5 +1,8 @@
+## 0.2.5 (April 23, 2024)
+  - Change self to static for make method
+
 ## 0.2.4 (April 23, 2024)
-  - Change self to static for chunk method
+  - Change self to static for all methods
 
 ## 0.2.3 (April 23, 2024)
   - Fix namespace in CollectionTest.php

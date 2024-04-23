@@ -20,9 +20,9 @@ class Collection implements \IteratorAggregate, \Countable
         $this->items = $items;
     }
 
-    public static function make(...$items): self
+    public static function make(...$items): static
     {
-        return new self(...$items);
+        return new static(...$items);
     }
 
     /**
