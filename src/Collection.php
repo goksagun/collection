@@ -34,29 +34,6 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
-     * Add an item to the collection. Optionally, provide an index.
-     *
-     * @param T $item
-     * @return static<T>
-     */
-    public function add(mixed $item, int|string $index = null): static
-    {
-        if (null !== $index) {
-            if ($this->exists($index)) {
-                throw new \RuntimeException(\sprintf('The index %s already exists in the collection.', $index));
-            }
-
-            $this->items[$index] = $item;
-
-            return $this;
-        }
-
-        $this->items[] = $item;
-
-        return $this;
-    }
-
-    /**
      * Remove an item from the collection by index.
      *
      * @return static<T>

@@ -40,34 +40,6 @@ final class CollectionTest extends TestCase
         $this->assertEquals(['item1', 'item2'], $items);
     }
 
-    public function testShouldAddItem()
-    {
-        $collection = new Collection();
-        $collection->add('item');
-
-        $this->assertEquals(1, $collection->count());
-    }
-
-    public function testShouldAddItemWithIndex()
-    {
-        $collection = new Collection();
-        $collection->add('item', 'index');
-
-        $this->assertEquals(1, $collection->count());
-        $this->assertEquals('item', $collection->get('index'));
-    }
-
-    public function testShouldThrowExceptionWhenAddingExistingItem()
-    {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('The index 0 already exists in the collection.');
-
-        $collection = new Collection();
-        $collection->add('item1', 0);
-        $collection->add('item2', 0);
-    }
-
-
     public function testShouldCountItems()
     {
         $collection = new Collection('item1', 'item2');
@@ -159,10 +131,6 @@ final class CollectionTest extends TestCase
         $collection = new Collection();
 
         $this->assertTrue($collection->isEmpty());
-
-        $collection->add('item');
-
-        $this->assertFalse($collection->isEmpty());
     }
 
     public function testShouldContainsItem()
