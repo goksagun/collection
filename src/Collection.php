@@ -179,6 +179,16 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
+     * Chunk the collection into multiple arrays.
+     *
+     * @return self<T>[]
+     */
+    public function chunk(int $size): array
+    {
+        return \array_map(fn($chunk) => (new self(...$chunk)), \array_chunk($this->items, $size));
+    }
+
+    /**
      * Reduce the collection to a single value using a callback function.
      *
      * @param callable(T, T):T $callback
