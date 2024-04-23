@@ -1,3 +1,6 @@
+## 0.2.4 (April 23, 2024)
+  - Change self to static for chunk method
+
 ## 0.2.3 (April 23, 2024)
   - Fix namespace in CollectionTest.php
 
