@@ -1,3 +1,6 @@
+## 0.2.1 (April 23, 2024)
+  - Add README file
+
 ## 0.2.0 (April 23, 2024)
   - Add chunk method
 
