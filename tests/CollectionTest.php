@@ -16,11 +16,6 @@ final class CollectionTest extends TestCase
         $this->assertInstanceOf(Collection::class, new Collection());
     }
 
-    public function testShouldCreateStaticCall()
-    {
-        $this->assertInstanceOf(Collection::class, Collection::make());
-    }
-
     public function testShouldGetIterator()
     {
         $collection = new Collection('item1', 'item2');
@@ -40,34 +35,6 @@ final class CollectionTest extends TestCase
         $this->assertEquals(['item1', 'item2'], $items);
     }
 
-    public function testShouldAddItem()
-    {
-        $collection = new Collection();
-        $collection->add('item');
-
-        $this->assertEquals(1, $collection->count());
-    }
-
-    public function testShouldAddItemWithIndex()
-    {
-        $collection = new Collection();
-        $collection->add('item', 'index');
-
-        $this->assertEquals(1, $collection->count());
-        $this->assertEquals('item', $collection->get('index'));
-    }
-
-    public function testShouldThrowExceptionWhenAddingExistingItem()
-    {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('The index 0 already exists in the collection.');
-
-        $collection = new Collection();
-        $collection->add('item1', 0);
-        $collection->add('item2', 0);
-    }
-
-
     public function testShouldCountItems()
     {
         $collection = new Collection('item1', 'item2');
@@ -79,8 +46,8 @@ final class CollectionTest extends TestCase
     {
         $collection = new Collection('item1', 'item2');
 
-        $this->assertTrue($collection->exists(0));
-        $this->assertFalse($collection->exists(2));
+        $this->assertTrue($collection->has(0));
+        $this->assertFalse($collection->has(2));
     }
 
     public function testShouldGetAllItems()
@@ -159,10 +126,6 @@ final class CollectionTest extends TestCase
         $collection = new Collection();
 
         $this->assertTrue($collection->isEmpty());
-
-        $collection->add('item');
-
-        $this->assertFalse($collection->isEmpty());
     }
 
     public function testShouldContainsItem()
@@ -237,24 +200,6 @@ final class CollectionTest extends TestCase
         $merged = $collection1->merge($collection2)->merge($collection3);
 
         $this->assertEquals(['item1', 'item2', 'item3', 'item4', 'item5', 'item6'], $merged->all());
-    }
-
-    public function testShouldRemoveItem()
-    {
-        $collection = new Collection('item1', 'item2');
-
-        $collection->remove(0);
-
-        $this->assertEquals([1 => 'item2'], $collection->all());
-    }
-
-    public function testShouldThrowExceptionWhenRemovingNonExistingItem()
-    {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('The index 2 does not exist in the collection.');
-
-        $collection = new Collection('item1', 'item2');
-        $collection->remove(2);
     }
 
     public function testShouldClearCollection()

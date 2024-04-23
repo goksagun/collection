@@ -20,56 +20,12 @@ class Collection implements \IteratorAggregate, \Countable
         $this->items = $items;
     }
 
-    public static function make(...$items): static
-    {
-        return new static(...$items);
-    }
-
     /**
      * @return \Traversable<T>
      */
     public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->items);
-    }
-
-    /**
-     * Add an item to the collection. Optionally, provide an index.
-     *
-     * @param T $item
-     * @return static<T>
-     */
-    public function add(mixed $item, int|string $index = null): static
-    {
-        if (null !== $index) {
-            if ($this->exists($index)) {
-                throw new \RuntimeException(\sprintf('The index %s already exists in the collection.', $index));
-            }
-
-            $this->items[$index] = $item;
-
-            return $this;
-        }
-
-        $this->items[] = $item;
-
-        return $this;
-    }
-
-    /**
-     * Remove an item from the collection by index.
-     *
-     * @return static<T>
-     */
-    public function remove(int|string $index): static
-    {
-        if (!$this->exists($index)) {
-            throw new \RuntimeException(\sprintf('The index %s does not exist in the collection.', $index));
-        }
-
-        unset($this->items[$index]);
-
-        return $this;
     }
 
     /**
@@ -89,7 +45,7 @@ class Collection implements \IteratorAggregate, \Countable
      */
     public function get(int|string $index): mixed
     {
-        if (!$this->exists($index)) {
+        if (!$this->has($index)) {
             return null;
         }
 
@@ -99,7 +55,7 @@ class Collection implements \IteratorAggregate, \Countable
     /**
      * Check if an item exists in the collection by index.
      */
-    public function exists(int|string $index): bool
+    public function has(int|string $index): bool
     {
         return \array_key_exists($index, $this->items);
     }
