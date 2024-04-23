@@ -29,22 +29,6 @@ class Collection implements \IteratorAggregate, \Countable
     }
 
     /**
-     * Remove an item from the collection by index.
-     *
-     * @return static<T>
-     */
-    public function remove(int|string $index): static
-    {
-        if (!$this->exists($index)) {
-            throw new \RuntimeException(\sprintf('The index %s does not exist in the collection.', $index));
-        }
-
-        unset($this->items[$index]);
-
-        return $this;
-    }
-
-    /**
      * Get all items from the collection.
      *
      * @return array<T>

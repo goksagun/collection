@@ -143,21 +143,6 @@ class ProductCollectionTest extends TestCase
         $this->assertTrue($productCollection->isEmpty());
     }
 
-    public function testShouldRemoveProductFromProductCollection()
-    {
-        $productCollection = new ProductCollection(
-            new Fixtures\Product('Product 1', 100.99),
-            new Fixtures\Product('Product 2', 200.99)
-        );
-
-        $productCollection->remove(0);
-
-        $this->assertEquals(1, $productCollection->count());
-        $this->assertInstanceOf(Fixtures\Product::class, $productCollection->get(1));
-        $this->assertEquals('Product 2', $productCollection->get(1)->getName());
-        $this->assertEquals(200.99, $productCollection->get(1)->getPrice());
-    }
-
     public function testShouldClearProductCollection()
     {
         $productCollection = new ProductCollection(
