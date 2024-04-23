@@ -42,9 +42,9 @@ class ProductCollectionTest extends TestCase
             new Fixtures\Product('Product 2', 200.99)
         );
 
-        $this->assertTrue($productCollection->exists(0));
-        $this->assertTrue($productCollection->exists(1));
-        $this->assertFalse($productCollection->exists(2));
+        $this->assertTrue($productCollection->has(0));
+        $this->assertTrue($productCollection->has(1));
+        $this->assertFalse($productCollection->has(2));
     }
 
     public function testShouldGetProductFromProductCollection()

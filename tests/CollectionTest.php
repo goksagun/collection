@@ -46,8 +46,8 @@ final class CollectionTest extends TestCase
     {
         $collection = new Collection('item1', 'item2');
 
-        $this->assertTrue($collection->exists(0));
-        $this->assertFalse($collection->exists(2));
+        $this->assertTrue($collection->has(0));
+        $this->assertFalse($collection->has(2));
     }
 
     public function testShouldGetAllItems()

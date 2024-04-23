@@ -45,7 +45,7 @@ class Collection implements \IteratorAggregate, \Countable
      */
     public function get(int|string $index): mixed
     {
-        if (!$this->exists($index)) {
+        if (!$this->has($index)) {
             return null;
         }
 
@@ -55,7 +55,7 @@ class Collection implements \IteratorAggregate, \Countable
     /**
      * Check if an item exists in the collection by index.
      */
-    public function exists(int|string $index): bool
+    public function has(int|string $index): bool
     {
         return \array_key_exists($index, $this->items);
     }
