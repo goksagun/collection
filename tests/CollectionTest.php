@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Test;
+namespace Goksagun\Collection\Test;
 
 use Goksagun\Collection\Collection;
 use Goksagun\Collection\Test\Fixtures\Product;
