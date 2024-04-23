@@ -1,3 +1,6 @@
+## 0.2.0 (April 23, 2024)
+  - Add chunk method
+
 ## 0.1.0 (April 22, 2024)
   - Change namespace
   - Add phpunit config to test
