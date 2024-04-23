@@ -267,6 +267,18 @@ final class CollectionTest extends TestCase
         $this->assertTrue($collection->isEmpty());
     }
 
+    public function testShouldChunkCollection()
+    {
+        $collection = new Collection('item1', 'item2', 'item3');
+
+        $chunks = $collection->chunk(2);
+
+        $this->assertEquals(
+            [['item1', 'item2'], ['item3']],
+            \array_map(fn(Collection $chunk) => $chunk->all(), $chunks)
+        );
+    }
+
     public function testShouldGetCollectionKeys()
     {
         $collection = new Collection('item1', 'item2');
