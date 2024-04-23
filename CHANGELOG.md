@@ -1,3 +1,9 @@
+## 0.2.6 (April 23, 2024)
+  - Rename exists method to has
+  - Remove remove method
+  - Remove make method
+  - Remove add method
+
 ## 0.2.5 (April 23, 2024)
   - Change self to static for make method
 
