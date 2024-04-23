@@ -20,11 +20,6 @@ class Collection implements \IteratorAggregate, \Countable
         $this->items = $items;
     }
 
-    public static function make(...$items): static
-    {
-        return new static(...$items);
-    }
-
     /**
      * @return \Traversable<T>
      */

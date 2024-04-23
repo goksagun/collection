@@ -16,11 +16,6 @@ final class CollectionTest extends TestCase
         $this->assertInstanceOf(Collection::class, new Collection());
     }
 
-    public function testShouldCreateStaticCall()
-    {
-        $this->assertInstanceOf(Collection::class, Collection::make());
-    }
-
     public function testShouldGetIterator()
     {
         $collection = new Collection('item1', 'item2');
