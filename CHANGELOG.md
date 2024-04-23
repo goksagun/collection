@@ -1,3 +1,6 @@
+## 0.2.3 (April 23, 2024)
+  - Fix namespace in CollectionTest.php
+
 ## 0.2.2 (April 23, 2024)
   - Add test fixtures
   - Update php.yml
