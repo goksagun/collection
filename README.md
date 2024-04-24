@@ -86,7 +86,6 @@ $collection = new ProductCollection(
 );
 
 $total = $collection
-    ->add(new Product('Product 4', 400.99))
     ->map(function (Product $product) {
         return new Product($product->getName(), $product->getPrice() * 1.18);
     })
@@ -106,10 +105,8 @@ echo "Total: {$total}\n";
 // Product 0: Product 1 - 119.1682
 // Product 1: Product 2 - 237.1682
 // Product 2: Product 3 - 355.1682
-// Product 3: Product 4 - 473.1682
 // Product 0: Product 3 - 355.1682
-// Product 1: Product 4 - 473.1682
-// Total: 828.3364
+// Total: 355.1682
 
 ```
 

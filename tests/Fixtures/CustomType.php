@@ -2,7 +2,7 @@
 
 namespace Goksagun\Collection\Test\Fixtures;
 
-class Product
+class CustomType
 {
     public function __construct (
         private string $name,
