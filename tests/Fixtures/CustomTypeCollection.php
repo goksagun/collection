@@ -5,12 +5,12 @@ namespace Goksagun\Collection\Test\Fixtures;
 use Goksagun\Collection\Collection;
 
 /**
- * @implements Collection<Product>
+ * @implements Collection<CustomType>
  */
-final class ProductCollection extends Collection
+final class CustomTypeCollection extends Collection
 {
 
-    public function __construct(Product ...$items)
+    public function __construct(CustomType ...$items)
     {
         parent::__construct(...$items);
     }
