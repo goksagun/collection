@@ -1,3 +1,7 @@
+## 0.2.7 (April 24, 2024)
+  - Add specific collection types
+  - Rename fixture names
+
 ## 0.2.6 (April 23, 2024)
   - Rename exists method to has
   - Remove remove method
